@@ -1,3 +1,5 @@
+import 'package:elections/core/constants/app_strings.dart';
+import 'package:elections/core/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
@@ -11,13 +13,18 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: AppStrings.appName,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.light,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Flutter Demo Home Page')),
+        body: const Center(
+          child: Text('Hello World'),
+        ),
       ),
     );
   }
