@@ -13,6 +13,7 @@ class DefaultTextField extends StatelessWidget {
       this.labelStyle,
       this.suffixIcon,
       this.prefixIcon,
+      this.obscureText = false,
       this.onChanged,
       this.validator,
       this.onSubmit,
@@ -28,7 +29,7 @@ class DefaultTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onSubmit;
-  final bool obscureText = false;
+  final bool obscureText;
   final double? padding;
   final int? maxLine;
   @override

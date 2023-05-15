@@ -9,6 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../features/registrations/view_model/registration_cubit.dart';
+
 GetIt serviceLocator = GetIt.instance;
 
 class ServiceLocator {
@@ -28,5 +30,9 @@ class ServiceLocator {
         () => FirebaseStorageServiceImpl(serviceLocator()));
     serviceLocator.registerLazySingleton<BaseAuthService>(
         () => AuthFirebaseService(serviceLocator()));
+
+    //cubits
+    serviceLocator
+        .registerFactory<RegistrationCubit>(() => RegistrationCubit());
   }
 }

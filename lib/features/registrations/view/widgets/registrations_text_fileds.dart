@@ -1,8 +1,11 @@
 import 'package:elections/core/constants/app_strings.dart';
 import 'package:elections/core/constants/extensions.dart';
 import 'package:elections/core/controllers/text_fileds_controllers.dart';
+import 'package:elections/features/registrations/view_model/registration_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/validationHelper/validation_helper.dart';
 import '../../../../core/widgets/default_text_filed.dart';
 
 final GlobalKey<FormState> registrationsFormKey = GlobalKey<FormState>();
@@ -31,10 +34,12 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       key: registrationsFormKey,
       child: Column(
         children: [
           DefaultTextField(
+            validator: (value) => ValidationHelper.validateName(value: value),
             controller: MainTextFieldsControllers.nameController,
             labelText: AppStrings.name,
             prefixIcon: Icon(
@@ -44,6 +49,7 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
             keyboardType: TextInputType.name,
           ),
           DefaultTextField(
+            validator: (value) => ValidationHelper.validateEmail(value: value),
             controller: MainTextFieldsControllers.emailController,
             labelText: AppStrings.email,
             prefixIcon: Icon(
@@ -52,22 +58,36 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
             ),
             keyboardType: TextInputType.emailAddress,
           ),
-          DefaultTextField(
-            controller: MainTextFieldsControllers.passwordController,
-            labelText: AppStrings.password,
-            prefixIcon: Icon(
-              Icons.password,
-              color: context.theme.iconTheme.color,
-            ),
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.remove_red_eye,
+          BlocBuilder<RegistrationCubit, DataRegistrationState>(
+              builder: (context, state) {
+            final registrationCubit =
+                BlocProvider.of<RegistrationCubit>(context);
+            return DefaultTextField(
+              validator: (value) =>
+                  ValidationHelper.validatePassword(value: value),
+              controller: MainTextFieldsControllers.passwordController,
+              labelText: AppStrings.password,
+              prefixIcon: Icon(
+                Icons.password,
+                color: context.theme.iconTheme.color,
               ),
-            ),
-            keyboardType: TextInputType.visiblePassword,
-          ),
+              obscureText: state.isPasswordVisible,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  registrationCubit.passwordVisibility();
+                },
+                icon: Icon(
+                  state.isPasswordVisible
+                      ? Icons.remove_red_eye
+                      : Icons.remove_red_eye_outlined,
+                ),
+              ),
+              keyboardType: TextInputType.visiblePassword,
+            );
+          }),
           DefaultTextField(
+            validator: (value) =>
+                ValidationHelper.validateNationalId(value: value),
             controller: MainTextFieldsControllers.nationalIdController,
             labelText: AppStrings.nationalId,
             prefixIcon: Icon(
