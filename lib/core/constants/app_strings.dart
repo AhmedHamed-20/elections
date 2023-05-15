@@ -20,4 +20,6 @@ class AppStrings {
       'Please Enter Your National ID';
   static const String nationalIdShouldBe14Digits =
       'National ID Should Be 14 Digits';
+
+  static const String pleasePickImage = 'Please Pick National ID Image';
 }

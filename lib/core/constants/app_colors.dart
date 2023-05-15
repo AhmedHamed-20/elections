@@ -7,4 +7,7 @@ class AppColors {
   static const Color grayColor = Color(0xFFABB2BF);
   static const Color darkTitleTextColor = Colors.white;
   static const Color lightTitleTextColor = Colors.black;
+  static const Color toastSuccessColor = Colors.green;
+  static const Color toastErrorColor = Colors.red;
+  static const Color toastWarningColor = Colors.yellow;
 }

@@ -6,9 +6,11 @@ class DataRegistrationState extends Equatable {
   final bool isPasswordVisible;
   final ValidationResponse registrationStatus;
   final File? image;
+  final String imageType;
   const DataRegistrationState(
       {this.errorMessage = '',
       this.isPasswordVisible = true,
+      this.imageType = '',
       this.registrationStatus = ValidationResponse.idle,
       this.image});
 
@@ -16,9 +18,11 @@ class DataRegistrationState extends Equatable {
     String? errorMessage,
     bool? isPasswordVisible,
     ValidationResponse? registrationStatus,
+    String? imageType,
     File? image,
   }) {
     return DataRegistrationState(
+      imageType: imageType ?? this.imageType,
       errorMessage: errorMessage ?? this.errorMessage,
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
       registrationStatus: registrationStatus ?? this.registrationStatus,
@@ -29,6 +33,7 @@ class DataRegistrationState extends Equatable {
   @override
   List<Object?> get props => [
         errorMessage,
+        imageType,
         isPasswordVisible,
         registrationStatus,
         image,

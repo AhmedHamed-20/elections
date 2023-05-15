@@ -7,16 +7,20 @@ class SaveUserToFireStoreModel extends Equatable {
   final int nationalNumber;
   final String identityImageUrl;
 
-  const SaveUserToFireStoreModel(this.email, this.name, this.uid,
-      this.nationalNumber, this.identityImageUrl);
+  const SaveUserToFireStoreModel(
+      {required this.email,
+      required this.name,
+      required this.uid,
+      required this.nationalNumber,
+      required this.identityImageUrl});
 
   factory SaveUserToFireStoreModel.fromJson(Map<String, dynamic> json) {
     return SaveUserToFireStoreModel(
-      json['email'] as String,
-      json['name'] as String,
-      json['uid'] as String,
-      json['nationalNumber'] as int,
-      json['identityImageUrl'] as String,
+      email: json['email'] as String,
+      name: json['name'] as String,
+      uid: json['uid'] as String,
+      nationalNumber: json['nationalNumber'] as int,
+      identityImageUrl: json['identityImageUrl'] as String,
     );
   }
   Map<String, dynamic> toJsonWithoutUid() {
