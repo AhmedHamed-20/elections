@@ -56,6 +56,6 @@ class ServiceLocator {
         RegistartionsDataSourceImpl(
             serviceLocator(), serviceLocator(), serviceLocator()));
     serviceLocator.registerLazySingleton<BaseElectionsDataSource>(
-        () => ElectionsDataSourceImpl(serviceLocator()));
+        () => ElectionsDataSourceImpl(serviceLocator(), serviceLocator()));
   }
 }

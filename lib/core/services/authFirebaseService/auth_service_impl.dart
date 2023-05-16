@@ -28,4 +28,9 @@ class AuthFirebaseService implements BaseAuthService {
       password: signInUserParams.password,
     );
   }
+
+  @override
+  Future<void> signOut() async {
+    return await _firebaseAuth.signOut();
+  }
 }

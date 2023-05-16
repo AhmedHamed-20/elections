@@ -105,15 +105,16 @@ class RegistrationCubit extends Cubit<DataRegistrationState> {
     final result = await _baseRegistrationsRepository
         .saveUserToFireStore(saveUserToFireStoreModel);
     result.fold(
-      (l) => emit(state.copyWith(
-          registrationStatus: ValidationResponse.error,
-          errorMessage: l.message)),
-      (r) => emit(
+        (l) => emit(state.copyWith(
+            registrationStatus: ValidationResponse.error,
+            errorMessage: l.message)), (r) {
+      emit(
         state.copyWith(
           registrationStatus: ValidationResponse.registrationSuccess,
         ),
-      ),
-    );
+      );
+      Constants.uid = uid;
+    });
   }
 
   void pickImage() async {

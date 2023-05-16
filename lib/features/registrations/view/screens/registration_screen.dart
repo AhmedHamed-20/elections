@@ -22,7 +22,7 @@ class RegistrationScreen extends StatelessWidget {
       child: BlocListener<RegistrationCubit, DataRegistrationState>(
         listener: (context, state) {
           if (state.isUserSignedIn) {
-            context.navigateToNamed(AppRoutesNames.home);
+            context.navigateToAndRemoveUntilNamed(AppRoutesNames.home);
           }
         },
         child: Scaffold(

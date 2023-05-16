@@ -26,4 +26,44 @@ extension NaviagtionExtension on BuildContext {
   void navigateToAndRemoveUntilNamed(String routeName) {
     Navigator.of(this).pushNamedAndRemoveUntil(routeName, (route) => false);
   }
+
+  void naviagtorPop() {
+    Navigator.of(this).pop();
+  }
+}
+
+extension ReturnDurationBetweenTwoDates on DateTime {
+  String getDurationAsStringBetweenTwoDates(DateTime dateTime) {
+    final difference = this.difference(dateTime);
+    final days = difference.inDays;
+    final hours = difference.inHours - (days * 24);
+    final minutes = difference.inMinutes - (hours * 60) - (days * 24 * 60);
+    final seconds = difference.inSeconds -
+        (minutes * 60) -
+        (hours * 60 * 60) -
+        (days * 24 * 60 * 60);
+    return '$days days, $hours hours, $minutes minutes, $seconds seconds';
+  }
+
+  DateTime getDifferenceAsDateTimeBetweenTwoDates(DateTime dateTime) {
+    final difference = this.difference(dateTime);
+    final days = difference.inDays;
+    final hours = difference.inHours - (days * 24);
+    final minutes = difference.inMinutes - (hours * 60) - (days * 24 * 60);
+    final seconds = difference.inSeconds -
+        (minutes * 60) -
+        (hours * 60 * 60) -
+        (days * 24 * 60 * 60);
+    return DateTime(days, hours, minutes, seconds);
+  }
+
+  bool isNowBetweenTwoDate(DateTime startDate, DateTime endDate) {
+    final now = this;
+
+    if (now.isAfter(startDate) && now.isBefore(endDate)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

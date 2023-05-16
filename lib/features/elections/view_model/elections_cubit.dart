@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elections/features/elections/models/elections_model.dart';
 import 'package:elections/features/elections/repository/base_elections_repository.dart';
 import 'package:elections/features/registrations/models/registration_model.dart';
@@ -69,5 +70,36 @@ class ElectionsCubit extends Cubit<ElectionsState> {
               errorMessage: failure.message,
             )),
         (_) {});
+  }
+
+  getElectionsDocAsSnapshot(
+      {required String collectionName, required String collectionDocId}) {
+    final result = _electionsRepository.getDocDataAsSnapshot(
+        collectionName, collectionDocId);
+    result.fold(
+      (failure) => emit(state.copyWith(
+          errorMessage: failure.message,
+          getElectionsDocAsSnapshotStatus: BaseRequestStatus.error)),
+      (electionsDocAsSnapshot) => emit(state.copyWith(
+          electionsDocAsSnapshot: electionsDocAsSnapshot,
+          getElectionsDocAsSnapshotStatus: BaseRequestStatus.success)),
+    );
+  }
+
+  Future<void> signOut() async {
+    emit(state.copyWith(
+      signOutStatus: BaseRequestStatusWithIdleState.loading,
+    ));
+    final result = await _electionsRepository.signOut();
+    result.fold(
+      (failure) => emit(state.copyWith(
+          errorMessage: failure.message,
+          signOutStatus: BaseRequestStatusWithIdleState.error)),
+      (_) => emit(
+        state.copyWith(
+          signOutStatus: BaseRequestStatusWithIdleState.success,
+        ),
+      ),
+    );
   }
 }

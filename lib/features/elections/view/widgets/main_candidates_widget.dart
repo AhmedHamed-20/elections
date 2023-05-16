@@ -18,7 +18,7 @@ class CandidatesWidget extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           case BaseRequestStatus.success:
             return SuccessCndidateWidget(
-              candidates: state.electionsModel!.candidates,
+              electionsModel: state.electionsModel!,
             );
           case BaseRequestStatus.error:
             return Center(

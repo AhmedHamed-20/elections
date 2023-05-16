@@ -6,17 +6,20 @@ class ElectionsModel extends Equatable {
   final DateTime electionsStartDate;
   final DateTime electionsEndDate;
   final List<String> candidates;
+  final String docId;
   const ElectionsModel({
     required this.electionsStartDate,
     required this.electionsEndDate,
     required this.candidates,
+    required this.docId,
   });
 
-  factory ElectionsModel.fromJson(Map<String, dynamic> json) {
+  factory ElectionsModel.fromData(Map<String, dynamic> json, String docId) {
     return ElectionsModel(
       electionsStartDate: (json['electionsStartDate'] as Timestamp).toDate(),
       electionsEndDate: (json['electionsEndDate'] as Timestamp).toDate(),
       candidates: List<String>.from(json['candidates']),
+      docId: docId,
     );
   }
   Map<String, dynamic> toJson() {
@@ -32,5 +35,6 @@ class ElectionsModel extends Equatable {
         electionsStartDate,
         electionsEndDate,
         candidates,
+        docId,
       ];
 }

@@ -10,4 +10,9 @@ abstract class BaseFireStoreService {
 
   Future updateDataToFireStore(Map<String, dynamic> updateDataToFireStoreMap,
       String collectionName, String collectionDocId);
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getDocDataAsSnapshot(
+    String collectionName,
+    String collectionDocId,
+  );
 }

@@ -27,4 +27,12 @@ class AppStrings {
   static const String votersColloctionName = 'voters';
   static const String vote = 'Vote';
   static const String youVoted = 'You Voted Before';
+  static const String areYouSureYouWantToSignOut =
+      'Are You Sure You Want To Sign Out?';
+  static const String yes = 'Yes';
+  static const String no = 'No';
+  static const String candidatesKey = 'candidates';
+  static const String electionsStartDateTimeKey = 'electionsStartDate';
+  static const String electionsEndDateTimeKey = 'electionsEndDate';
+  static const String electionsNotAvailble = 'Elections Not Availble';
 }

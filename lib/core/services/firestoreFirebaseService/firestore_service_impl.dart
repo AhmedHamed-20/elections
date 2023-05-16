@@ -28,4 +28,15 @@ class FireStoreServiceImpl implements BaseFireStoreService {
         .doc(collectionDocId)
         .update(updateDataToFireStoreMap);
   }
+
+  @override
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getDocDataAsSnapshot(
+    String collectionName,
+    String collectionDocId,
+  ) {
+    return _firebaseFirestore
+        .collection(collectionName)
+        .doc(collectionDocId)
+        .snapshots();
+  }
 }

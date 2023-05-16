@@ -7,4 +7,6 @@ abstract class BaseAuthService {
   Future<UserCredential> createUserWithEmailAndPassword(
       CreateUserParams createUserParams);
   get currentUser;
+
+  Future<void> signOut();
 }
