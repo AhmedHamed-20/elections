@@ -1,4 +1,3 @@
-import 'package:elections/core/errors/exceptions.dart';
 import 'package:elections/core/errors/failures.dart';
 import 'package:elections/features/registrations/data/base_registrations_data_source.dart';
 import 'package:elections/features/registrations/repository/registrations_repository_impl.dart';

@@ -1,15 +1,10 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elections/core/constants/app_strings.dart';
-import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/errors/exceptions.dart';
 import 'package:elections/core/services/authFirebaseService/base_auth_service.dart';
 import 'package:elections/core/services/firebaseStorageService/base_firebase_storage.dart';
 import 'package:elections/core/services/firestoreFirebaseService/base_firestore_service.dart';
 import 'package:elections/features/registrations/data/registrations_data_source_impl.dart';
-import 'package:elections/features/registrations/models/registration_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
