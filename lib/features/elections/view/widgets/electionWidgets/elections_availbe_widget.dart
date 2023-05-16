@@ -1,4 +1,5 @@
 import 'package:elections/core/constants/app_assets_path.dart';
+import 'package:elections/core/constants/app_padding.dart';
 import 'package:flutter/material.dart';
 
 import 'candidates_radio_button_widget.dart';
@@ -19,16 +20,19 @@ class ElectionsAvailbleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Image.asset(AppAssetsPath.voteImagePath),
-          ElectionsAvailbleDateWidget(
-            endDate: electionsEndDate,
-            startDate: electionsStartDate,
-          ),
-          CandidatedRadioButtonsWidget(candidates: candidates),
-          const ElectionVoteButtonWidget(),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p14),
+        child: Column(
+          children: [
+            Image.asset(AppAssetsPath.voteImagePath),
+            ElectionsAvailbleDateWidget(
+              endDate: electionsEndDate,
+              startDate: electionsStartDate,
+            ),
+            CandidatedRadioButtonsWidget(candidates: candidates),
+            const ElectionVoteButtonWidget(),
+          ],
+        ),
       ),
     );
   }
