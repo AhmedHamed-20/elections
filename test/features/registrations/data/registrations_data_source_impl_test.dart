@@ -15,6 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../shared_registartions_data.dart';
 import 'registrations_data_source_impl_test.mocks.dart';
 
 class MockUserCredential extends Mock implements UserCredential {}
@@ -30,28 +31,7 @@ void main() {
   late final BaseFirebaseStorage firebaseStorage;
   late final BaseAuthService authService;
   late RegistartionsDataSourceImpl dataSourceImpl;
-  const CreateUserParams mockCreateUserParams = CreateUserParams(
-    email: 'test@gmail.com',
-    name: 'name',
-    password: 'password',
-    nationalIdNumber: 123456789,
-  );
 
-  const FireStoreUserDataModel mockFireStoreUserDataModel =
-      FireStoreUserDataModel(
-    email: 'email',
-    name: 'name',
-    uid: 'uid',
-    nationalNumber: 123456789,
-    identityImageUrl: 'identityImageUrl',
-    isVote: false,
-  );
-  final exception = Exception('Test exception');
-  const SignInUserParams mockSignInUserParams =
-      SignInUserParams('email', 'password');
-  UploadImageToStorageParams mockUploadImageToStorageParams =
-      UploadImageToStorageParams(
-          imageFile: File('any'), imageType: '.jpg', uid: 'userId');
   setUp(() {
     fireStoreService = MockBaseFireStoreService();
     firebaseStorage = MockBaseFirebaseStorage();
