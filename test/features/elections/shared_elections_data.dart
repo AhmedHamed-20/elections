@@ -1,6 +1,5 @@
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/features/elections/models/elections_model.dart';
-import 'package:elections/features/registrations/models/registration_model.dart';
 
 ElectionsModel mockElectionsModel = ElectionsModel(
   candidates: const ['1'],

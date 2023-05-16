@@ -4,14 +4,12 @@ import 'package:elections/core/errors/exceptions.dart';
 import 'package:elections/core/services/authFirebaseService/base_auth_service.dart';
 import 'package:elections/core/services/firestoreFirebaseService/base_firestore_service.dart';
 import 'package:elections/features/elections/data/elections_data_source_impl.dart';
-import 'package:elections/features/elections/models/elections_model.dart';
 import 'package:elections/features/registrations/models/registration_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../registrations/data/registrations_data_source_impl_test.mocks.dart';
-import '../shared_elections_data.dart';
 
 @GenerateMocks([BaseFireStoreService, BaseAuthService])
 void main() {
@@ -19,6 +17,21 @@ void main() {
   late final BaseAuthService authService;
   late final ElectionsDataSourceImpl electionsDataSourceImpl;
 
+  const ElectionVoteParam mockElectionVoteParam = ElectionVoteParam(
+    nationalIdNumber: 123456789,
+    uid: 'uid',
+    candidateName: 'candidateName',
+  );
+
+  const FireStoreUserDataModel mockFireStoreUserDataModel =
+      FireStoreUserDataModel(
+    uid: 'uid',
+    nationalNumber: 123456789,
+    name: 'name',
+    email: 'email',
+    identityImageUrl: 'identityImage',
+    isVote: true,
+  );
   setUp(() {
     fireStoreService = MockBaseFireStoreService();
     authService = MockBaseAuthService();
