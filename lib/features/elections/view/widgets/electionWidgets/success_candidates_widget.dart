@@ -4,8 +4,8 @@ import 'package:elections/features/elections/models/elections_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utls/utls.dart';
-import '../../view_model/elections_cubit.dart';
+import '../../../../../core/utls/utls.dart';
+import '../../../view_model/elections_cubit.dart';
 import 'elections_stream_builder_widget.dart';
 
 int selectedCandidateIndex = 0;

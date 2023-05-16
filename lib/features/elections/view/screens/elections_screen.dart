@@ -5,7 +5,7 @@ import 'package:elections/features/elections/view_model/elections_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../widgets/elections_widget.dart';
+import '../widgets/electionWidgets/elections_widget.dart';
 import '../widgets/sign_out_alert_dialog.dart';
 
 class ElectionsScreen extends StatelessWidget {

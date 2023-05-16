@@ -1,7 +1,7 @@
 import 'package:elections/core/constants/extensions.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_strings.dart';
+import '../../../../../core/constants/app_strings.dart';
 
 class ElectionsNotAvailbeWidget extends StatelessWidget {
   const ElectionsNotAvailbeWidget({

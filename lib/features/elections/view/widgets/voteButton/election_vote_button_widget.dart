@@ -2,7 +2,7 @@ import 'package:elections/features/elections/view_model/elections_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utls/utls.dart';
+import '../../../../../core/utls/utls.dart';
 import 'election_vote_button_design_widget.dart';
 
 class ElectionVoteButtonWidget extends StatelessWidget {

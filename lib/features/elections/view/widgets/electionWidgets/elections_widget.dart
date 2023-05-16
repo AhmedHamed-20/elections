@@ -2,10 +2,10 @@ import 'package:elections/core/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/constant.dart';
-import '../../../../core/utls/utls.dart';
-import '../../view_model/elections_cubit.dart';
+import '../../../../../core/constants/app_strings.dart';
+import '../../../../../core/constants/constant.dart';
+import '../../../../../core/utls/utls.dart';
+import '../../../view_model/elections_cubit.dart';
 import 'main_candidates_widget.dart';
 
 class ElectionsWidget extends StatefulWidget {

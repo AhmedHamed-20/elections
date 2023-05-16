@@ -1,12 +1,12 @@
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/widgets/default_button.dart';
-import 'package:elections/features/elections/view/widgets/success_candidates_widget.dart';
+import 'package:elections/features/elections/view/widgets/electionWidgets/success_candidates_widget.dart';
 import 'package:elections/features/registrations/models/registration_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/app_strings.dart';
-import '../../view_model/elections_cubit.dart';
+import '../../../../../core/constants/app_strings.dart';
+import '../../../view_model/elections_cubit.dart';
 
 class ElectionButtonDesignWidget extends StatelessWidget {
   const ElectionButtonDesignWidget(

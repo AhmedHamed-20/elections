@@ -4,7 +4,7 @@ import 'package:elections/features/elections/view_model/elections_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants/app_strings.dart';
+import '../../../../../core/constants/app_strings.dart';
 import 'elections_availbe_widget.dart';
 import 'elections_not_availble_widget.dart';
 

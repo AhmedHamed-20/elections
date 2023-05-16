@@ -1,5 +1,5 @@
 import 'package:elections/core/constants/extensions.dart';
-import 'package:elections/features/elections/view/widgets/success_candidates_widget.dart';
+import 'package:elections/features/elections/view/widgets/electionWidgets/success_candidates_widget.dart';
 import 'package:flutter/material.dart';
 
 class CandidatedRadioButtonsWidget extends StatelessWidget {

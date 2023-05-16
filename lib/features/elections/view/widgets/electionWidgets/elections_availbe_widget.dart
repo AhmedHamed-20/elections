@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'candidates_radio_button_widget.dart';
-import 'election_vote_button_widget.dart';
+import '../voteButton/election_vote_button_widget.dart';
 import 'elections_available_date_widget.dart';
 
 class ElectionsAvailbleWidget extends StatelessWidget {
