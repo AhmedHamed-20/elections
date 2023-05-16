@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path/path.dart' as path;
+
+import '../../../core/constants/constant.dart';
 import '../../../core/utls/utls.dart';
 import '../models/registration_model.dart';
 
@@ -17,6 +19,26 @@ class RegistrationCubit extends Cubit<DataRegistrationState> {
       : super(const DataRegistrationState());
 
   final BaseRegistrationsRepository _baseRegistrationsRepository;
+
+  Future<void> checkUserIsSignedIn() async {
+    final result = await _baseRegistrationsRepository.checkUserIsSignedIn();
+    result.fold(
+        (l) => emit(state.copyWith(
+            isSignedInRequestStatus: BaseRequestStatus.error,
+            isUserSignedIn: false,
+            errorMessage: l.message)), (r) {
+      if (r != null) {
+        emit(state.copyWith(
+            isSignedInRequestStatus: BaseRequestStatus.success,
+            isUserSignedIn: true));
+        Constants.uid = r.uid;
+      } else {
+        emit(state.copyWith(
+            isSignedInRequestStatus: BaseRequestStatus.success,
+            isUserSignedIn: false));
+      }
+    });
+  }
 
   Future<void> createUserWithEmailAndPassword({
     required CreateUserParams createUserParams,
@@ -72,12 +94,13 @@ class RegistrationCubit extends Cubit<DataRegistrationState> {
     required String imageDownloadUrl,
     required String uid,
   }) async {
-    final saveUserToFireStoreModel = SaveUserToFireStoreModel(
+    final saveUserToFireStoreModel = FireStoreUserDataModel(
       email: createUserParams.email,
       name: createUserParams.name,
       uid: uid,
       nationalNumber: createUserParams.nationalIdNumber,
       identityImageUrl: imageDownloadUrl,
+      isVote: false,
     );
     final result = await _baseRegistrationsRepository
         .saveUserToFireStore(saveUserToFireStoreModel);

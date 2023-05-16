@@ -1,3 +1,4 @@
+import 'package:elections/core/constants/app_strings.dart';
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/errors/exceptions.dart';
 import 'package:elections/core/errors/server_error_message_model.dart';
@@ -31,10 +32,12 @@ class RegistartionsDataSourceImpl implements BaseRegistrationsDataSource {
 
   @override
   Future<void> saveUserToFireStore(
-      SaveUserToFireStoreModel saveUserToFireStoreModel) async {
+      FireStoreUserDataModel saveUserToFireStoreModel) async {
     try {
-      return await _baseFireStoreService
-          .saveUserToFireStore(saveUserToFireStoreModel);
+      return await _baseFireStoreService.saveDataToFireStore(
+          saveUserToFireStoreModel.toJson(),
+          AppStrings.collectionUsers,
+          saveUserToFireStoreModel.uid);
     } on Exception catch (e) {
       throw ServerException(
         serverErrorMessageModel: ServerErrorMessageModel.fromException(e),
@@ -46,6 +49,17 @@ class RegistartionsDataSourceImpl implements BaseRegistrationsDataSource {
   Future<String> uploadIdentityImage(UploadImageToStorageParams params) async {
     try {
       return await _baseFirebaseStorage.uploadFile(params);
+    } on Exception catch (e) {
+      throw ServerException(
+        serverErrorMessageModel: ServerErrorMessageModel.fromException(e),
+      );
+    }
+  }
+
+  @override
+  Future<User?> checkUserIsSignedIn() async {
+    try {
+      return await _baseAuthService.currentUser;
     } on Exception catch (e) {
       throw ServerException(
         serverErrorMessageModel: ServerErrorMessageModel.fromException(e),

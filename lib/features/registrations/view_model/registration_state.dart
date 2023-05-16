@@ -7,14 +7,20 @@ class DataRegistrationState extends Equatable {
   final ValidationResponse registrationStatus;
   final File? image;
   final String imageType;
+  final BaseRequestStatus isSignedInRequestStatus;
+  final bool isUserSignedIn;
   const DataRegistrationState(
       {this.errorMessage = '',
       this.isPasswordVisible = true,
       this.imageType = '',
+      this.isUserSignedIn = false,
+      this.isSignedInRequestStatus = BaseRequestStatus.loading,
       this.registrationStatus = ValidationResponse.idle,
       this.image});
 
   DataRegistrationState copyWith({
+    bool? isUserSignedIn,
+    BaseRequestStatus? isSignedInRequestStatus,
     String? errorMessage,
     bool? isPasswordVisible,
     ValidationResponse? registrationStatus,
@@ -22,6 +28,9 @@ class DataRegistrationState extends Equatable {
     File? image,
   }) {
     return DataRegistrationState(
+      isUserSignedIn: isUserSignedIn ?? this.isUserSignedIn,
+      isSignedInRequestStatus:
+          isSignedInRequestStatus ?? this.isSignedInRequestStatus,
       imageType: imageType ?? this.imageType,
       errorMessage: errorMessage ?? this.errorMessage,
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
@@ -32,6 +41,8 @@ class DataRegistrationState extends Equatable {
 
   @override
   List<Object?> get props => [
+        isUserSignedIn,
+        isSignedInRequestStatus,
         errorMessage,
         imageType,
         isPasswordVisible,

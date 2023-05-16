@@ -1,4 +1,6 @@
 import 'package:elections/core/constants/constant.dart';
+import 'package:elections/core/constants/extensions.dart';
+import 'package:elections/core/routes/app_routes_names.dart';
 import 'package:elections/features/registrations/view/widgets/registrations_button_design.dart';
 import 'package:elections/features/registrations/view_model/registration_cubit.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +18,14 @@ class RegistartionsButtonWidget extends StatelessWidget {
       listener: (context, state) {
         if (state.registrationStatus ==
             ValidationResponse.registrationSuccess) {
-          showToast(
+          Constants.showToast(
               message: 'success',
               backgroundColor: AppColors.toastSuccessColor,
               textColor: Colors.white);
+
+          context.navigateToNamed(AppRoutesNames.home);
         } else if (state.registrationStatus == ValidationResponse.error) {
-          showToast(
+          Constants.showToast(
               message: state.errorMessage,
               backgroundColor: AppColors.toastErrorColor,
               textColor: Colors.white);

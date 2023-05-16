@@ -1,6 +1,13 @@
-import '../../../features/registrations/models/registration_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class BaseFireStoreService {
-  Future<void> saveUserToFireStore(
-      SaveUserToFireStoreModel saveUserToFireStoreModel);
+  Future<void> saveDataToFireStore(Map<String, dynamic> saveDataToFireStoreMap,
+      String collectionName, String collectionDocId);
+
+  Future<QuerySnapshot<Map<String, dynamic>>> readDataFromFireStore(
+    String collectionName,
+  );
+
+  Future updateDataToFireStore(Map<String, dynamic> updateDataToFireStoreMap,
+      String collectionName, String collectionDocId);
 }

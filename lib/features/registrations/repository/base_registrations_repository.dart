@@ -10,7 +10,8 @@ abstract class BaseRegistrationsRepository {
       CreateUserParams params);
 
   Future<Either<Failure, void>> saveUserToFireStore(
-      SaveUserToFireStoreModel saveUserToFireStoreModel);
+      FireStoreUserDataModel saveUserToFireStoreModel);
   Future<Either<Failure, String>> uploadIdentityImage(
       UploadImageToStorageParams params);
+  Future<Either<Failure, User?>> checkUserIsSignedIn();
 }

@@ -8,8 +8,14 @@ enum ValidationResponse {
   error,
 }
 
-enum BaseRequestStatus {
+enum BaseRequestStatusWithIdleState {
   idle,
+  loading,
+  success,
+  error,
+}
+
+enum BaseRequestStatus {
   loading,
   success,
   error,

@@ -30,7 +30,7 @@ class RegistartionsButtonDesign extends StatelessWidget {
               createUserParams: createUserParams,
             );
           } else if (isImagePicked == false) {
-            showToast(
+            Constants.showToast(
                 message: AppStrings.pleasePickImage,
                 backgroundColor: AppColors.toastWarningColor,
                 textColor: Colors.black);

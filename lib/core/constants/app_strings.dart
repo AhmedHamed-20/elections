@@ -22,4 +22,9 @@ class AppStrings {
       'National ID Should Be 14 Digits';
 
   static const String pleasePickImage = 'Please Pick National ID Image';
+  static const String electionsColloctionName = 'elections';
+  static const String voteNow = 'Vote Now';
+  static const String votersColloctionName = 'voters';
+  static const String vote = 'Vote';
+  static const String youVoted = 'You Voted Before';
 }

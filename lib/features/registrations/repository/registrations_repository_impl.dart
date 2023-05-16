@@ -34,7 +34,7 @@ class RegistrationsRepositoryImpl implements BaseRegistrationsRepository {
 
   @override
   Future<Either<Failure, void>> saveUserToFireStore(
-      SaveUserToFireStoreModel saveUserToFireStoreModel) async {
+      FireStoreUserDataModel saveUserToFireStoreModel) async {
     try {
       final result = await _baseRegistrationsDataSource
           .saveUserToFireStore(saveUserToFireStoreModel);
@@ -55,6 +55,21 @@ class RegistrationsRepositoryImpl implements BaseRegistrationsRepository {
     try {
       final result =
           await _baseRegistrationsDataSource.uploadIdentityImage(params);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.serverErrorMessageModel.message,
+          statusCode: e.serverErrorMessageModel.statusCode,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, User?>> checkUserIsSignedIn() async {
+    try {
+      final result = await _baseRegistrationsDataSource.checkUserIsSignedIn();
       return Right(result);
     } on ServerException catch (e) {
       return Left(
