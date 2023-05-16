@@ -43,4 +43,8 @@ class AppStrings {
   static const String thisNationalIdIsAlreadyTaken =
       'This National ID Is Already Taken if you registered before please sign in';
   static const String alreadyHaveAnAccount = 'Already Have An Account?';
+  static const String imageSizeIsTooLarge =
+      'Image Size Is Too Large max size is 5 MB';
+  static const String makeSureImageSizeIsLessThan5MB =
+      'Make Sure Image Size Is Less Than 5 MB';
 }

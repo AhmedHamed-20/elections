@@ -1,3 +1,4 @@
+import 'package:elections/core/constants/extensions.dart';
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/widgets/default_button.dart';
 import 'package:elections/features/elections/view/widgets/electionWidgets/success_candidates_widget.dart';
@@ -16,15 +17,18 @@ class ElectionButtonDesignWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final electionsCubit = BlocProvider.of<ElectionsCubit>(context);
-    return DefaultButtonWithTextWidget(
-      onPressed: () {
-        final electionVoteParams = ElectionVoteParam(
-            nationalIdNumber: signedInUser.nationalNumber,
-            candidateName: candidate[selectedCandidateIndex],
-            uid: signedInUser.uid);
-        electionsCubit.electionVote(electionVoteParams);
-      },
-      text: AppStrings.vote,
+    return SizedBox(
+      width: context.width,
+      child: DefaultButtonWithTextWidget(
+        onPressed: () {
+          final electionVoteParams = ElectionVoteParam(
+              nationalIdNumber: signedInUser.nationalNumber,
+              candidateName: candidate[selectedCandidateIndex],
+              uid: signedInUser.uid);
+          electionsCubit.electionVote(electionVoteParams);
+        },
+        text: AppStrings.vote,
+      ),
     );
   }
 }

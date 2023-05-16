@@ -33,19 +33,34 @@ class PickImageWidget extends StatelessWidget {
             SizedBox(
               height: context.height * 0.1,
             ),
-            DefaultButtonWithTextWidget(
-                onPressed: () {
-                  registrationCubit.pickImage();
-                },
-                text: AppStrings.pickAnotherImage)
+            SizedBox(
+              width: context.width,
+              child: DefaultButtonWithTextWidget(
+                  onPressed: () {
+                    registrationCubit.pickImage();
+                  },
+                  text: AppStrings.pickAnotherImage),
+            )
           ],
         );
       } else {
-        return DefaultButtonWithTextWidget(
-          onPressed: () {
-            registrationCubit.pickImage();
-          },
-          text: AppStrings.pickImage,
+        return Column(
+          children: [
+            SizedBox(
+              width: context.width,
+              child: DefaultButtonWithTextWidget(
+                onPressed: () {
+                  registrationCubit.pickImage();
+                },
+                text: AppStrings.pickImage,
+              ),
+            ),
+            Text(
+              AppStrings.makeSureImageSizeIsLessThan5MB,
+              style: context.theme.textTheme.titleSmall,
+              textAlign: TextAlign.center,
+            ),
+          ],
         );
       }
     });

@@ -1,4 +1,5 @@
 import 'package:elections/core/constants/app_strings.dart';
+import 'package:elections/core/constants/extensions.dart';
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/controllers/text_fileds_controllers.dart';
 import 'package:elections/core/widgets/default_button.dart';
@@ -15,20 +16,23 @@ class SignInButtonDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registrationsCubit = BlocProvider.of<RegistrationCubit>(context);
-    return DefaultButtonWithTextWidget(
-      onPressed: () {
-        if (signInFormKey.currentState!.validate()) {
-          final signInUserParams = SignInUserParams(
-            MainTextFieldsControllers.signInEmailController.text,
-            MainTextFieldsControllers.signInPasswordController.text,
-          );
+    return SizedBox(
+      width: context.width,
+      child: DefaultButtonWithTextWidget(
+        onPressed: () {
+          if (signInFormKey.currentState!.validate()) {
+            final signInUserParams = SignInUserParams(
+              MainTextFieldsControllers.signInEmailController.text,
+              MainTextFieldsControllers.signInPasswordController.text,
+            );
 
-          registrationsCubit.signInWithEmailAndPassword(
-            signInUserParams,
-          );
-        }
-      },
-      text: AppStrings.signIn,
+            registrationsCubit.signInWithEmailAndPassword(
+              signInUserParams,
+            );
+          }
+        },
+        text: AppStrings.signIn,
+      ),
     );
   }
 }

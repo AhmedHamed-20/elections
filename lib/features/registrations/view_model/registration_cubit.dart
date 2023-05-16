@@ -133,10 +133,17 @@ class RegistrationCubit extends Cubit<DataRegistrationState> {
       Future<FilePickerResult?> filePicked =
           FilePicker.platform.pickFiles(type: FileType.image);
       FilePickerResult? result = await filePicked;
-      if (result != null) {
+      //check image size if it is less than 2 MB
+
+      if (result != null && result.files.single.size < 5000000) {
         File file = File(result.files.single.path!);
         final imageType = path.extension(file.path);
         emit(state.copyWith(image: file, imageType: imageType));
+      } else if (result != null && result.files.single.size > 5000000) {
+        Constants.showToast(
+            message: AppStrings.imageSizeIsTooLarge,
+            backgroundColor: AppColors.toastErrorColor,
+            textColor: Colors.white);
       }
     } on Exception catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));

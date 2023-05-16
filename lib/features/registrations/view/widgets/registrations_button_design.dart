@@ -1,6 +1,7 @@
 import 'package:elections/core/constants/app_colors.dart';
 import 'package:elections/core/constants/app_strings.dart';
 import 'package:elections/core/constants/constant.dart';
+import 'package:elections/core/constants/extensions.dart';
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/controllers/text_fileds_controllers.dart';
 import 'package:elections/core/widgets/default_button.dart';
@@ -15,29 +16,33 @@ class RegistartionsButtonDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registrationsCubit = BlocProvider.of<RegistrationCubit>(context);
-    return DefaultButtonWithTextWidget(
-        onPressed: () {
-          if (registrationsFormKey.currentState!.validate() && isImagePicked) {
-            final createUserParams = CreateUserParams(
-              email:
-                  MainTextFieldsControllers.registrationsEmailController.text,
-              password: MainTextFieldsControllers
-                  .registrationsPasswordController.text,
-              name: MainTextFieldsControllers.nameController.text,
-              nationalIdNumber: int.parse(
-                  MainTextFieldsControllers.nationalIdController.text),
-            );
+    return SizedBox(
+      width: context.width,
+      child: DefaultButtonWithTextWidget(
+          onPressed: () {
+            if (registrationsFormKey.currentState!.validate() &&
+                isImagePicked) {
+              final createUserParams = CreateUserParams(
+                email:
+                    MainTextFieldsControllers.registrationsEmailController.text,
+                password: MainTextFieldsControllers
+                    .registrationsPasswordController.text,
+                name: MainTextFieldsControllers.nameController.text,
+                nationalIdNumber: int.parse(
+                    MainTextFieldsControllers.nationalIdController.text),
+              );
 
-            registrationsCubit.createUserWithEmailAndPassword(
-              createUserParams: createUserParams,
-            );
-          } else if (isImagePicked == false) {
-            Constants.showToast(
-                message: AppStrings.pleasePickImage,
-                backgroundColor: AppColors.toastWarningColor,
-                textColor: Colors.black);
-          }
-        },
-        text: AppStrings.register);
+              registrationsCubit.createUserWithEmailAndPassword(
+                createUserParams: createUserParams,
+              );
+            } else if (isImagePicked == false) {
+              Constants.showToast(
+                  message: AppStrings.pleasePickImage,
+                  backgroundColor: AppColors.toastWarningColor,
+                  textColor: Colors.black);
+            }
+          },
+          text: AppStrings.register),
+    );
   }
 }
