@@ -15,8 +15,8 @@ class MockFirebaseUser extends Mock implements User {}
 
 @GenerateMocks([BaseRegistrationsDataSource])
 void main() {
-  late final BaseRegistrationsDataSource baseRegistrationsDataSource;
-  late final RegistrationsRepositoryImpl registrationsRepositoryImpl;
+  late BaseRegistrationsDataSource baseRegistrationsDataSource;
+  late RegistrationsRepositoryImpl registrationsRepositoryImpl;
   final UserCredential mockUserCredential = MockUserCredential();
   setUp(() {
     baseRegistrationsDataSource = MockBaseRegistrationsDataSource();

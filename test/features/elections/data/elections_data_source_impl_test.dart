@@ -9,13 +9,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../registrations/data/registrations_data_source_impl_test.mocks.dart';
+import 'elections_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([BaseFireStoreService, BaseAuthService])
 void main() {
-  late final BaseFireStoreService fireStoreService;
-  late final BaseAuthService authService;
-  late final ElectionsDataSourceImpl electionsDataSourceImpl;
+  late BaseFireStoreService fireStoreService;
+  late BaseAuthService authService;
+  late ElectionsDataSourceImpl electionsDataSourceImpl;
 
   const ElectionVoteParam mockElectionVoteParam = ElectionVoteParam(
     nationalIdNumber: 123456789,

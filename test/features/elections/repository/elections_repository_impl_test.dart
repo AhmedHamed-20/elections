@@ -11,8 +11,8 @@ import 'elections_repository_impl_test.mocks.dart';
 
 @GenerateMocks([BaseElectionsDataSource])
 void main() {
-  late final BaseElectionsDataSource baseElectionsDataSource;
-  late final ElectionsRepositoryImpl electionsRepositoryImpl;
+  late BaseElectionsDataSource baseElectionsDataSource;
+  late ElectionsRepositoryImpl electionsRepositoryImpl;
 
   setUp(() {
     baseElectionsDataSource = MockBaseElectionsDataSource();

@@ -22,9 +22,9 @@ class MockQuerySnapshot<T extends Object?> extends Mock
 
 @GenerateMocks([BaseFireStoreService, BaseFirebaseStorage, BaseAuthService])
 void main() {
-  late final BaseFireStoreService fireStoreService;
-  late final BaseFirebaseStorage firebaseStorage;
-  late final BaseAuthService authService;
+  late BaseFireStoreService fireStoreService;
+  late BaseFirebaseStorage firebaseStorage;
+  late BaseAuthService authService;
   late RegistartionsDataSourceImpl dataSourceImpl;
 
   setUp(() {
