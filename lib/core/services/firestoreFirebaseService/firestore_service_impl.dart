@@ -6,8 +6,10 @@ class FireStoreServiceImpl implements BaseFireStoreService {
 
   FireStoreServiceImpl(this._firebaseFirestore);
   @override
-  Future<void> saveDataToFireStore(Map<String, dynamic> saveDataToFireStoreMap,
-      String collectionName, String collectionDocId) async {
+  Future<void> saveDataToFireStoreWithId(
+      Map<String, dynamic> saveDataToFireStoreMap,
+      String collectionName,
+      String collectionDocId) async {
     return await _firebaseFirestore
         .collection(collectionName)
         .doc(collectionDocId)

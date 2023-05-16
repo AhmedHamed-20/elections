@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:elections/core/constants/app_colors.dart';
+import 'package:elections/core/constants/app_strings.dart';
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/features/registrations/repository/base_registrations_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 
 import '../../../core/constants/constant.dart';
@@ -43,28 +47,35 @@ class RegistrationCubit extends Cubit<DataRegistrationState> {
   Future<void> createUserWithEmailAndPassword({
     required CreateUserParams createUserParams,
   }) async {
-    emit(state.copyWith(registrationStatus: ValidationResponse.loading));
-    final result = await _baseRegistrationsRepository
-        .signUpWithEmailAndPassword(createUserParams);
-    result.fold(
-      (l) => emit(
-        state.copyWith(
-          errorMessage: l.message,
-          registrationStatus: ValidationResponse.error,
+    if (await checkIfNationalIdTaken(createUserParams.nationalIdNumber)) {
+      Constants.showToast(
+          message: AppStrings.thisNationalIdIsAlreadyTaken,
+          backgroundColor: AppColors.toastErrorColor,
+          textColor: Colors.white);
+    } else {
+      emit(state.copyWith(registrationStatus: ValidationResponse.loading));
+      final result = await _baseRegistrationsRepository
+          .signUpWithEmailAndPassword(createUserParams);
+      result.fold(
+        (l) => emit(
+          state.copyWith(
+            errorMessage: l.message,
+            registrationStatus: ValidationResponse.error,
+          ),
         ),
-      ),
-      (r) {
-        emit(state.copyWith(
-            registrationStatus: ValidationResponse.userCreatedSuccess));
-        uploadUserIdentityImage(
-            UploadImageToStorageParams(
-                uid: r.user!.uid,
-                imageFile: state.image!,
-                imageType: state.imageType),
-            createUserParams,
-            r);
-      },
-    );
+        (r) {
+          emit(state.copyWith(
+              registrationStatus: ValidationResponse.userCreatedSuccess));
+          uploadUserIdentityImage(
+              UploadImageToStorageParams(
+                  uid: r.user!.uid,
+                  imageFile: state.image!,
+                  imageType: state.imageType),
+              createUserParams,
+              r);
+        },
+      );
+    }
   }
 
   Future<void> uploadUserIdentityImage(UploadImageToStorageParams params,
@@ -132,7 +143,57 @@ class RegistrationCubit extends Cubit<DataRegistrationState> {
     }
   }
 
-  void passwordVisibility() {
-    emit(state.copyWith(isPasswordVisible: !state.isPasswordVisible));
+  void changeSignInPasswordVisibility() {
+    emit(state.copyWith(
+        isSignInPasswordInVisible: !state.isSignInPasswordInVisible));
+  }
+
+  void changeRegistrationsPasswordVisibility() {
+    emit(state.copyWith(
+        isRegistrationsPasswordInVisible:
+            !state.isRegistrationsPasswordInVisible));
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>?> getUsersDocs() async {
+    QuerySnapshot<Map<String, dynamic>>? user;
+    final docs = await _baseRegistrationsRepository
+        .getAllUsersDoc(AppStrings.collectionUsers);
+    docs.fold(
+        (l) => emit(state.copyWith(
+              errorMessage: l.message,
+            )),
+        (r) => user = r);
+    return user;
+  }
+
+  Future<bool> checkIfNationalIdTaken(int nationalId) async {
+    bool isTaken = false;
+    final value = await getUsersDocs();
+
+    if (value != null) {
+      for (var element in value.docs) {
+        if (element.data()[AppStrings.nationalNumberKey] == nationalId) {
+          isTaken = true;
+        }
+      }
+    }
+    return isTaken;
+  }
+
+  Future<void> signInWithEmailAndPassword(
+      SignInUserParams signInUserParams) async {
+    emit(state.copyWith(
+        signInRequestStatus: BaseRequestStatusWithIdleState.loading));
+    final result = await _baseRegistrationsRepository
+        .signInWithEmailAndPassword(signInUserParams);
+
+    result.fold(
+        (l) => emit(state.copyWith(
+            errorMessage: l.message,
+            signInRequestStatus: BaseRequestStatusWithIdleState.error)), (r) {
+      emit(state.copyWith(
+          signInRequestStatus: BaseRequestStatusWithIdleState.success));
+      Constants.uid = r.user!.uid;
+    });
   }
 }

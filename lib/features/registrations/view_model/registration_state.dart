@@ -3,15 +3,19 @@ part of 'registration_cubit.dart';
 
 class DataRegistrationState extends Equatable {
   final String errorMessage;
-  final bool isPasswordVisible;
+  final bool isRegistrationsPasswordInVisible;
+  final bool isSignInPasswordInVisible;
   final ValidationResponse registrationStatus;
   final File? image;
   final String imageType;
   final BaseRequestStatus isSignedInRequestStatus;
   final bool isUserSignedIn;
+  final BaseRequestStatusWithIdleState signInRequestStatus;
   const DataRegistrationState(
       {this.errorMessage = '',
-      this.isPasswordVisible = true,
+      this.isRegistrationsPasswordInVisible = true,
+      this.isSignInPasswordInVisible = true,
+      this.signInRequestStatus = BaseRequestStatusWithIdleState.idle,
       this.imageType = '',
       this.isUserSignedIn = false,
       this.isSignedInRequestStatus = BaseRequestStatus.loading,
@@ -20,20 +24,26 @@ class DataRegistrationState extends Equatable {
 
   DataRegistrationState copyWith({
     bool? isUserSignedIn,
+    bool? isSignInPasswordInVisible,
+    BaseRequestStatusWithIdleState? signInRequestStatus,
     BaseRequestStatus? isSignedInRequestStatus,
     String? errorMessage,
-    bool? isPasswordVisible,
+    bool? isRegistrationsPasswordInVisible,
     ValidationResponse? registrationStatus,
     String? imageType,
     File? image,
   }) {
     return DataRegistrationState(
+      isSignInPasswordInVisible:
+          isSignInPasswordInVisible ?? this.isSignInPasswordInVisible,
+      signInRequestStatus: signInRequestStatus ?? this.signInRequestStatus,
       isUserSignedIn: isUserSignedIn ?? this.isUserSignedIn,
       isSignedInRequestStatus:
           isSignedInRequestStatus ?? this.isSignedInRequestStatus,
       imageType: imageType ?? this.imageType,
       errorMessage: errorMessage ?? this.errorMessage,
-      isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
+      isRegistrationsPasswordInVisible: isRegistrationsPasswordInVisible ??
+          this.isRegistrationsPasswordInVisible,
       registrationStatus: registrationStatus ?? this.registrationStatus,
       image: image ?? this.image,
     );
@@ -42,10 +52,12 @@ class DataRegistrationState extends Equatable {
   @override
   List<Object?> get props => [
         isUserSignedIn,
+        isSignInPasswordInVisible,
+        signInRequestStatus,
         isSignedInRequestStatus,
         errorMessage,
         imageType,
-        isPasswordVisible,
+        isRegistrationsPasswordInVisible,
         registrationStatus,
         image,
       ];

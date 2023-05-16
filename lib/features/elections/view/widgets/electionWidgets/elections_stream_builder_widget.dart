@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elections/core/constants/extensions.dart';
+import 'package:elections/core/widgets/error_screen.dart';
 import 'package:elections/features/elections/view_model/elections_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +10,11 @@ import 'elections_availbe_widget.dart';
 import 'elections_not_availble_widget.dart';
 
 class ElectionsStreamBuilderWidget extends StatelessWidget {
-  const ElectionsStreamBuilderWidget({super.key});
+  final String collectionId;
+  const ElectionsStreamBuilderWidget({super.key, required this.collectionId});
   @override
   Widget build(BuildContext context) {
+    final electionsCubit = BlocProvider.of<ElectionsCubit>(context);
     return BlocBuilder<ElectionsCubit, ElectionsState>(
       builder: (context, state) => StreamBuilder(
           stream: state.electionsDocAsSnapshot,
@@ -34,6 +37,15 @@ class ElectionsStreamBuilderWidget extends StatelessWidget {
                   candidates: snapshot.data!.data()![AppStrings.candidatesKey],
                 );
               }
+            } else if (snapshot.hasError) {
+              return ErrorScreen(
+                  message: AppStrings.errorOccurred,
+                  isHoleScreen: false,
+                  onRetryPressed: () {
+                    electionsCubit.getElectionsDocAsSnapshot(
+                        collectionName: AppStrings.electionsColloctionName,
+                        collectionDocId: collectionId);
+                  });
             } else {
               return const Center(child: CircularProgressIndicator());
             }

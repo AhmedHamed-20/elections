@@ -1,4 +1,5 @@
 import 'package:elections/core/constants/extensions.dart';
+import 'package:elections/core/widgets/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,9 +22,7 @@ class _ElectionsWidgetState extends State<ElectionsWidget> {
   @override
   void initState() {
     super.initState();
-    final electionsCubit = BlocProvider.of<ElectionsCubit>(context);
-    electionsCubit.getAvailableElections();
-    electionsCubit.getSignedInUserFromFireStore(Constants.uid);
+    getAvailbleElectionsAndSignedInUser();
   }
 
   @override
@@ -45,14 +44,20 @@ class _ElectionsWidgetState extends State<ElectionsWidget> {
               return const CandidatesWidget();
             }
           case BaseRequestStatus.error:
-            return Center(
-              child: Text(
-                state.errorMessage,
-                style: context.theme.textTheme.titleMedium,
-              ),
-            );
+            return ErrorScreen(
+                message: state.errorMessage,
+                isHoleScreen: false,
+                onRetryPressed: () {
+                  getAvailbleElectionsAndSignedInUser();
+                });
         }
       },
     );
+  }
+
+  void getAvailbleElectionsAndSignedInUser() {
+    final electionsCubit = BlocProvider.of<ElectionsCubit>(context);
+    electionsCubit.getAvailableElections();
+    electionsCubit.getSignedInUserFromFireStore(Constants.uid);
   }
 }

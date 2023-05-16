@@ -19,8 +19,10 @@ class RegistartionsButtonDesign extends StatelessWidget {
         onPressed: () {
           if (registrationsFormKey.currentState!.validate() && isImagePicked) {
             final createUserParams = CreateUserParams(
-              email: MainTextFieldsControllers.emailController.text,
-              password: MainTextFieldsControllers.passwordController.text,
+              email:
+                  MainTextFieldsControllers.registrationsEmailController.text,
+              password: MainTextFieldsControllers
+                  .registrationsPasswordController.text,
               name: MainTextFieldsControllers.nameController.text,
               nationalIdNumber: int.parse(
                   MainTextFieldsControllers.nationalIdController.text),

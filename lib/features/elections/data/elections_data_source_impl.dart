@@ -21,8 +21,14 @@ class ElectionsDataSourceImpl implements BaseElectionsDataSource {
     try {
       final result = await _fireStoreService
           .readDataFromFireStore(AppStrings.electionsColloctionName);
-      return ElectionsModel.fromData(
-          result.docs.first.data(), result.docs.first.id);
+      if (result.docs.isNotEmpty) {
+        return ElectionsModel.fromData(
+            result.docs.first.data(), result.docs.first.id);
+      } else {
+        throw const ServerException(
+            serverErrorMessageModel: ServerErrorMessageModel(
+                message: AppStrings.noElectionsAvailable));
+      }
     } on Exception catch (e) {
       throw ServerException(
           serverErrorMessageModel: ServerErrorMessageModel.fromException(e));
@@ -32,7 +38,7 @@ class ElectionsDataSourceImpl implements BaseElectionsDataSource {
   @override
   Future<void> electionVote(ElectionVoteParam electionVoteParam) async {
     try {
-      await _fireStoreService.saveDataToFireStore(
+      await _fireStoreService.saveDataToFireStoreWithId(
           electionVoteParam.toJson(),
           AppStrings.votersColloctionName,
           electionVoteParam.nationalIdNumber.toString());

@@ -9,6 +9,7 @@ class AppStrings {
   static const String nationalId = 'National ID';
   static const String pickImage = 'Pick National ID Image';
   static const String register = 'Register';
+  static const String signIn = 'Sign In';
   static const String pickAnotherImage = 'Pick Another Image';
   static const String pleaseEnterYourEmail = 'Please Enter Your Email';
   static const String invalidEmail = 'Invalid Email';
@@ -35,4 +36,11 @@ class AppStrings {
   static const String electionsStartDateTimeKey = 'electionsStartDate';
   static const String electionsEndDateTimeKey = 'electionsEndDate';
   static const String electionsNotAvailble = 'Elections Not Availble';
+  static const String noElectionsAvailable = 'No Elections Available';
+  static const String retry = 'Retry';
+  static const String errorOccurred = 'Error Occurred';
+  static const String nationalNumberKey = 'nationalNumber';
+  static const String thisNationalIdIsAlreadyTaken =
+      'This National ID Is Already Taken if you registered before please sign in';
+  static const String alreadyHaveAnAccount = 'Already Have An Account?';
 }

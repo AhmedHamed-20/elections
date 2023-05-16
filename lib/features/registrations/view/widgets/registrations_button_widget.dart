@@ -23,7 +23,7 @@ class RegistartionsButtonWidget extends StatelessWidget {
               backgroundColor: AppColors.toastSuccessColor,
               textColor: Colors.white);
 
-          context.navigateToNamed(AppRoutesNames.home);
+          context.navigateToAndRemoveUntilNamed(AppRoutesNames.home);
         } else if (state.registrationStatus == ValidationResponse.error) {
           Constants.showToast(
               message: state.errorMessage,

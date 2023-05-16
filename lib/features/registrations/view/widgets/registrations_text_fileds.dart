@@ -38,7 +38,7 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
       key: registrationsFormKey,
       child: Column(
         children: [
-          DefaultTextField(
+          DefaultTextFormField(
             validator: (value) => ValidationHelper.validateName(value: value),
             controller: MainTextFieldsControllers.nameController,
             labelText: AppStrings.name,
@@ -48,9 +48,9 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
             ),
             keyboardType: TextInputType.name,
           ),
-          DefaultTextField(
+          DefaultTextFormField(
             validator: (value) => ValidationHelper.validateEmail(value: value),
-            controller: MainTextFieldsControllers.emailController,
+            controller: MainTextFieldsControllers.registrationsEmailController,
             labelText: AppStrings.email,
             prefixIcon: Icon(
               Icons.email,
@@ -62,22 +62,23 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
               builder: (context, state) {
             final registrationCubit =
                 BlocProvider.of<RegistrationCubit>(context);
-            return DefaultTextField(
+            return DefaultTextFormField(
               validator: (value) =>
                   ValidationHelper.validatePassword(value: value),
-              controller: MainTextFieldsControllers.passwordController,
+              controller:
+                  MainTextFieldsControllers.registrationsPasswordController,
               labelText: AppStrings.password,
               prefixIcon: Icon(
                 Icons.password,
                 color: context.theme.iconTheme.color,
               ),
-              obscureText: state.isPasswordVisible,
+              obscureText: state.isRegistrationsPasswordInVisible,
               suffixIcon: IconButton(
                 onPressed: () {
-                  registrationCubit.passwordVisibility();
+                  registrationCubit.changeSignInPasswordVisibility();
                 },
                 icon: Icon(
-                  state.isPasswordVisible
+                  state.isRegistrationsPasswordInVisible
                       ? Icons.remove_red_eye
                       : Icons.remove_red_eye_outlined,
                 ),
@@ -85,7 +86,7 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
               keyboardType: TextInputType.visiblePassword,
             );
           }),
-          DefaultTextField(
+          DefaultTextFormField(
             validator: (value) =>
                 ValidationHelper.validateNationalId(value: value),
             controller: MainTextFieldsControllers.nationalIdController,
@@ -103,15 +104,17 @@ class _RegistrationsTextFieldsState extends State<RegistrationsTextFields> {
 
   void initTextEditingControllers() {
     MainTextFieldsControllers.nameController = TextEditingController();
-    MainTextFieldsControllers.emailController = TextEditingController();
-    MainTextFieldsControllers.passwordController = TextEditingController();
+    MainTextFieldsControllers.registrationsEmailController =
+        TextEditingController();
+    MainTextFieldsControllers.registrationsPasswordController =
+        TextEditingController();
     MainTextFieldsControllers.nationalIdController = TextEditingController();
   }
 
   void disposeTextEditingControllers() {
     MainTextFieldsControllers.nameController.dispose();
-    MainTextFieldsControllers.emailController.dispose();
-    MainTextFieldsControllers.passwordController.dispose();
+    MainTextFieldsControllers.registrationsEmailController.dispose();
+    MainTextFieldsControllers.registrationsPasswordController.dispose();
     MainTextFieldsControllers.nationalIdController.dispose();
   }
 }

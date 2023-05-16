@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elections/core/constants/app_strings.dart';
 import 'package:elections/core/constants/params.dart';
 import 'package:elections/core/errors/exceptions.dart';
@@ -34,7 +35,7 @@ class RegistartionsDataSourceImpl implements BaseRegistrationsDataSource {
   Future<void> saveUserToFireStore(
       FireStoreUserDataModel saveUserToFireStoreModel) async {
     try {
-      return await _baseFireStoreService.saveDataToFireStore(
+      return await _baseFireStoreService.saveDataToFireStoreWithId(
           saveUserToFireStoreModel.toJson(),
           AppStrings.collectionUsers,
           saveUserToFireStoreModel.uid);
@@ -60,6 +61,30 @@ class RegistartionsDataSourceImpl implements BaseRegistrationsDataSource {
   Future<User?> checkUserIsSignedIn() async {
     try {
       return await _baseAuthService.currentUser;
+    } on Exception catch (e) {
+      throw ServerException(
+        serverErrorMessageModel: ServerErrorMessageModel.fromException(e),
+      );
+    }
+  }
+
+  @override
+  Future<QuerySnapshot<Map<String, dynamic>>> getAllUsersDoc(
+      String collectionName) async {
+    try {
+      return await _baseFireStoreService.readDataFromFireStore(collectionName);
+    } on Exception catch (e) {
+      throw ServerException(
+        serverErrorMessageModel: ServerErrorMessageModel.fromException(e),
+      );
+    }
+  }
+
+  @override
+  Future<UserCredential> signInWithEmailAndPassword(
+      SignInUserParams params) async {
+    try {
+      return await _baseAuthService.signInWithEmailAndPassword(params);
     } on Exception catch (e) {
       throw ServerException(
         serverErrorMessageModel: ServerErrorMessageModel.fromException(e),

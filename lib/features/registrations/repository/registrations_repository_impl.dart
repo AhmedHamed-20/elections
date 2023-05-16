@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elections/core/errors/exceptions.dart';
 import 'package:elections/features/registrations/data/base_registrations_data_source.dart';
 import 'package:elections/features/registrations/models/registration_model.dart';
@@ -70,6 +71,40 @@ class RegistrationsRepositoryImpl implements BaseRegistrationsRepository {
   Future<Either<Failure, User?>> checkUserIsSignedIn() async {
     try {
       final result = await _baseRegistrationsDataSource.checkUserIsSignedIn();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.serverErrorMessageModel.message,
+          statusCode: e.serverErrorMessageModel.statusCode,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, QuerySnapshot<Map<String, dynamic>>>> getAllUsersDoc(
+      String collectionName) async {
+    try {
+      final result =
+          await _baseRegistrationsDataSource.getAllUsersDoc(collectionName);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.serverErrorMessageModel.message,
+          statusCode: e.serverErrorMessageModel.statusCode,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCredential>> signInWithEmailAndPassword(
+      SignInUserParams params) async {
+    try {
+      final result =
+          await _baseRegistrationsDataSource.signInWithEmailAndPassword(params);
       return Right(result);
     } on ServerException catch (e) {
       return Left(

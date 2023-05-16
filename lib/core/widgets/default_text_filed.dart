@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../constants/app_padding.dart';
 import '../constants/app_radius.dart';
 
-class DefaultTextField extends StatelessWidget {
-  const DefaultTextField(
+class DefaultTextFormField extends StatelessWidget {
+  const DefaultTextFormField(
       {super.key,
       required this.controller,
       this.keyboardType,

@@ -1,5 +1,5 @@
 import 'package:elections/core/constants/app_strings.dart';
-import 'package:elections/core/constants/extensions.dart';
+import 'package:elections/core/widgets/error_screen.dart';
 import 'package:elections/features/elections/models/elections_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,14 +33,16 @@ class _SuccessCndidateWidgetState extends State<SuccessCndidateWidget> {
         case BaseRequestStatus.loading:
           return const Center(child: CircularProgressIndicator());
         case BaseRequestStatus.success:
-          return const ElectionsStreamBuilderWidget();
-        case BaseRequestStatus.error:
-          return Center(
-            child: Text(
-              state.errorMessage,
-              style: context.theme.textTheme.titleMedium,
-            ),
+          return ElectionsStreamBuilderWidget(
+            collectionId: widget.electionsModel.docId,
           );
+        case BaseRequestStatus.error:
+          return ErrorScreen(
+              message: state.errorMessage,
+              isHoleScreen: false,
+              onRetryPressed: () {
+                getElectionsDocAsSnapshot();
+              });
       }
     });
   }

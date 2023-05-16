@@ -14,17 +14,20 @@ extension NaviagtionExtension on BuildContext {
     Navigator.of(this).push(MaterialPageRoute(builder: (_) => widget));
   }
 
-  void navigateToNamed(String routeName) {
-    Navigator.of(this).pushNamed(routeName);
+  void navigateToNamed(String routeName, {Object? arguments}) {
+    Navigator.of(this).pushNamed(routeName, arguments: arguments);
   }
 
-  void navigateToAndRemoveUntil(Widget widget) {
+  void navigateToAndRemoveUntil(
+    Widget widget,
+  ) {
     Navigator.of(this).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => widget), (route) => false);
   }
 
-  void navigateToAndRemoveUntilNamed(String routeName) {
-    Navigator.of(this).pushNamedAndRemoveUntil(routeName, (route) => false);
+  void navigateToAndRemoveUntilNamed(String routeName, {Object? arguments}) {
+    Navigator.of(this).pushNamedAndRemoveUntil(routeName, (route) => false,
+        arguments: arguments);
   }
 
   void naviagtorPop() {
