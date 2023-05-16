@@ -11,35 +11,14 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../registrations/data/registrations_data_source_impl_test.mocks.dart';
+import '../shared_elections_data.dart';
 
 @GenerateMocks([BaseFireStoreService, BaseAuthService])
 void main() {
   late final BaseFireStoreService fireStoreService;
   late final BaseAuthService authService;
   late final ElectionsDataSourceImpl electionsDataSourceImpl;
-  ElectionsModel mockElectionsModel = ElectionsModel(
-    candidates: const ['1'],
-    docId: 'docId',
-    electionsEndDate: DateTime(2020),
-    electionsStartDate: DateTime(
-      2020,
-    ),
-  );
-  const ElectionVoteParam mockElectionVoteParam = ElectionVoteParam(
-    nationalIdNumber: 123456789,
-    uid: 'uid',
-    candidateName: 'candidateName',
-  );
 
-  const FireStoreUserDataModel mockFireStoreUserDataModel =
-      FireStoreUserDataModel(
-    uid: 'uid',
-    nationalNumber: 123456789,
-    name: 'name',
-    email: 'email',
-    identityImageUrl: 'identityImage',
-    isVote: true,
-  );
   setUp(() {
     fireStoreService = MockBaseFireStoreService();
     authService = MockBaseAuthService();
