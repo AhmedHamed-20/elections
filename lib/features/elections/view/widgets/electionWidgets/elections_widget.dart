@@ -1,9 +1,8 @@
-import 'package:elections/core/constants/extensions.dart';
 import 'package:elections/core/widgets/error_screen.dart';
+import 'package:elections/features/elections/view/widgets/electionWidgets/you_voted_before_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/constants/constant.dart';
 import '../../../../../core/utls/utls.dart';
 import '../../../view_model/elections_cubit.dart';
@@ -34,12 +33,7 @@ class _ElectionsWidgetState extends State<ElectionsWidget> {
             return const Center(child: CircularProgressIndicator());
           case BaseRequestStatus.success:
             if (state.signedInUser!.isVote) {
-              return Center(
-                child: Text(
-                  AppStrings.youVoted,
-                  style: context.theme.textTheme.titleMedium,
-                ),
-              );
+              return const YouVotedBeforeWidget();
             } else {
               return const CandidatesWidget();
             }

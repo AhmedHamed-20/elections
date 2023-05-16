@@ -2,11 +2,11 @@ import 'package:elections/core/constants/app_padding.dart';
 import 'package:elections/core/constants/app_strings.dart';
 import 'package:elections/core/constants/extensions.dart';
 import 'package:elections/core/routes/app_routes_names.dart';
-import 'package:elections/core/services/service_locator.dart';
 import 'package:elections/features/registrations/view_model/registration_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_assets_path.dart';
 import '../widgets/already_have_an_account_widget.dart';
 import '../widgets/pick_image_widget.dart';
 import '../widgets/registrations_button_widget.dart';
@@ -35,11 +35,12 @@ class RegistrationScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(AppPadding.p12),
             child: Column(
-              children: const [
-                RegistrationsTextFields(),
-                PickImageWidget(),
-                RegistartionsButtonWidget(),
-                AleardyHaveAnAccountWidget(),
+              children: [
+                Image.asset(AppAssetsPath.signUpAssetPath),
+                const RegistrationsTextFields(),
+                const PickImageWidget(),
+                const RegistartionsButtonWidget(),
+                const AleardyHaveAnAccountWidget(),
               ],
             ),
           ),
